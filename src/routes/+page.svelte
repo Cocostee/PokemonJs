@@ -2,6 +2,18 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import Pokecard from '$lib/components/Pokecard.svelte';
+
+	const Pokemons = [
+        {pokemon:"Carapuce", type:"Eau", life:"80", atk:"10", def:"4"},
+		{pokemon:"Iniglali", type:"Glace", life:"135", atk:"15", def:"6"},
+		{pokemon:"Magicarpe", type:"Eau", life:"10", atk:"1", def:"0"},
+		{pokemon:"Massko", type:"Plante", life:"120", atk:"12", def:"2"},
+		{pokemon:"Mewtwo", type:"Psy", life:"600", atk:"45", def:"8"},
+		{pokemon:"Miaouss", type:"Normal", life:"90", atk:"14", def:"5"},
+		{pokemon:"Pikachu", type:"Electrique", life:"75", atk:"17", def:"4"},
+		{pokemon:"Tadmorv", type:"Poison", life:"70", atk:"7", def:"8"}
+    ]
 </script>
 
 <svelte:head>
@@ -19,6 +31,9 @@
 		</span>
 </section>
 
+	{#each Pokemons as Pokemon}
+            <Pokecard pokemon={Pokemon.pokemon} type={Pokemon.type} life={Pokemon.life} atk={Pokemon.atk} def={Pokemon.def}></Pokecard>
+    {/each}
 <style>
 	section {
 		display: flex;
