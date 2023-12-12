@@ -1,5 +1,4 @@
 <script>
-	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import Pokecard from '$lib/components/Pokecard.svelte';
@@ -31,8 +30,10 @@
 		</span>
 </section>
 
+	<span class="text-red-500">test</span>
+
 	{#each Pokemons as Pokemon}
-            <Pokecard pokemon={Pokemon.pokemon} type={Pokemon.type} life={Pokemon.life} atk={Pokemon.atk} def={Pokemon.def}></Pokecard>
+		<Pokecard pokemon={Pokemon.pokemon} type={Pokemon.type} life={Pokemon.life} atk={Pokemon.atk} def={Pokemon.def}></Pokecard>
     {/each}
 <style>
 	section {
