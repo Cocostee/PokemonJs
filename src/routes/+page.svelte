@@ -25,12 +25,67 @@
 			currentPlayer++;
 
 			if (currentPlayer == 3) {
+				warningStartGame(currentPlayerObj);
 			}
 		}
 	}
 
-	function warningStartGame() {
+	function warningStartGame(currentPlayerObj) {
+		const overlay = document.createElement('div');
+		overlay.style.position = 'fixed';
+		overlay.style.top = '0';
+		overlay.style.left = '0';
+		overlay.style.width = '100%';
+		overlay.style.height = '100%';
+		overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // semi-transparent black background
+		overlay.style.zIndex = '1000'; // Set a high z-index to ensure it's on top of everything
+		overlay.style.display = 'flex';
+    	overlay.style.alignItems = 'center';
+    	overlay.style.justifyContent = 'center';
+		document.body.appendChild(overlay);
 
+		// Create the countdown element
+		const countdownElement = document.createElement('div');
+		countdownElement.id = 'countdown';
+		overlay.appendChild(countdownElement);
+		const colors = ['text-green-500', 'text-orange-500', 'text-red-700']; // Add more colors if needed
+
+		const audio = new Audio('../src/lib/music/countdown.mp3');
+		audio.play();
+		let countdown = 3;
+		countdownElement.style.fontFamily = "'Comic Sans MS', cursive";
+		countdownElement.style.fontSize = '20em';
+
+		function updateCountdown() {
+			if (countdown > 0) {
+				countdownElement.innerText = countdown;
+				countdownElement.className = colors[countdown - 1]; // Use className to set the color
+				countdown--;
+
+				setTimeout(updateCountdown, 1150); // 1 second
+			} else {
+				countdownElement.innerText = 'START';
+				setTimeout(updateCountdown, 1500);
+				// Stop audio
+				audio.pause();
+				audio.currentTime = 0;
+
+				const form = document.createElement('form');
+				form.method = 'post';
+				form.action = '/combat'; // Replace with your server endpoint
+
+				// Create an input field for your variable
+				const input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = 'battle';
+				input.value = currentPlayerObj;
+
+				form.appendChild(input);
+				document.body.appendChild(form);
+				form.submit();
+			}
+		}
+		updateCountdown();
 	}
 
 	const Pokemons = [
@@ -169,18 +224,13 @@
 <section>
 	<h1>
 		<span class="welcome">
-			<img
-				class="p-5"
-				src="../src/lib/images/Pokemon-No.png"
-				alt="Pokemon No"
-			/>
+			<img class="p-5" src="../src/lib/images/Pokemon-No.png" alt="Pokemon No" />
 		</span>
 	</h1>
 </section>
 
-<div id="countdown"></div>
-
 <p>{currentPlayer}</p>
+
 <div class="p-4 flex flex-wrap gap-5">
 	<!--Envelopper-->
 	{#each Pokemons as Pokemon}
