@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from '$lib/images/pokemon.webp';
+	import logo from '$lib/images/Pokemon-No.png';
 	import github from '$lib/images/heart.png';
 </script>
 

@@ -1,6 +1,5 @@
 <script>
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import Header from './Header.svelte';
 	import Pokecard from '$lib/components/Pokecard.svelte';
 	import '../styles.css';
 
@@ -15,11 +14,19 @@
 			pokemon: undefined
 		}
 	];
-	let playerColor = 'bg-white';
 
 	function handleClick(Pokemon) {
 		if (currentPlayer <= 2) {
 			let currentPlayerObj = players.find((player) => player.id === currentPlayer);
+
+			if (currentPlayer == 1) Pokemon.color = 'bg-blue-200';
+			else if (currentPlayer == 2) {
+				if (Pokemon.color != 'bg-white') {
+					Pokemon.color = 'bg-red-200';
+				} else {
+					Pokemon.color = 'bg-gradient-to-r from-blue-200 to-red-200';
+				}
+			}
 
 			currentPlayerObj.pokemon = Pokemon;
 			currentPlayer++;
@@ -31,6 +38,9 @@
 	}
 
 	function warningStartGame(currentPlayerObj) {
+		const descriptionElement = document.getElementById('selection');
+		descriptionElement.innerHTML = 'Les Pokémons ont été séléctionnés!';
+
 		const overlay = document.createElement('div');
 		overlay.style.position = 'fixed';
 		overlay.style.top = '0';
@@ -40,8 +50,8 @@
 		overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // semi-transparent black background
 		overlay.style.zIndex = '1000'; // Set a high z-index to ensure it's on top of everything
 		overlay.style.display = 'flex';
-    	overlay.style.alignItems = 'center';
-    	overlay.style.justifyContent = 'center';
+		overlay.style.alignItems = 'center';
+		overlay.style.justifyContent = 'center';
 		document.body.appendChild(overlay);
 
 		// Create the countdown element
@@ -54,7 +64,7 @@
 		audio.play();
 		let countdown = 3;
 		countdownElement.style.fontFamily = "'Comic Sans MS', cursive";
-		countdownElement.style.fontSize = '20em';
+		countdownElement.style.fontSize = '25em';
 
 		function updateCountdown() {
 			if (countdown > 0) {
@@ -65,7 +75,7 @@
 				setTimeout(updateCountdown, 1150); // 1 second
 			} else {
 				countdownElement.innerText = 'START';
-				setTimeout(updateCountdown, 1500);
+				setTimeout(updateCountdown, 2000);
 				// Stop audio
 				audio.pause();
 				audio.currentTime = 0;
@@ -100,7 +110,8 @@
 				{ atkName: 'Pistolet à eau', type: 'Eau', dmg: '10', hit: '90', crit: '20' },
 				{ atkName: "Bulles d'O", type: 'Eau', dmg: '5', hit: '40', crit: '90' },
 				{ atkName: 'Vive attaque', type: 'Normal', dmg: '7', hit: '100', crit: '10' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -114,7 +125,8 @@
 				{ atkName: 'Avalanche', type: 'Glace', dmg: '12', hit: '90', crit: '20' },
 				{ atkName: 'Coup de Boule', type: 'Normal', dmg: '15', hit: '100', crit: '10' },
 				{ atkName: 'Laser Glace', type: 'Glace', dmg: '15', hit: '75', crit: '5' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -128,7 +140,8 @@
 				{ atkName: 'Trempette', type: 'Eau', dmg: '0', hit: '100', crit: '30' },
 				{ atkName: 'Super Trempette', type: 'Eau', dmg: '0', hit: '95', crit: '30' },
 				{ atkName: 'Hyper Trempette', type: 'Eau', dmg: '1', hit: '90', crit: '10' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -142,7 +155,8 @@
 				{ atkName: 'Pistolet à eau', type: 'Eau', dmg: '10', hit: '90', crit: '20' },
 				{ atkName: 'Bulles', type: 'Eau', dmg: '5', hit: '40', crit: '90' },
 				{ atkName: 'Vengeance', type: 'Normal', dmg: '16', hit: '85', crit: '20' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -156,7 +170,8 @@
 				{ atkName: 'Trou Dimensionnel', type: 'Psy', dmg: '85', hit: '100', crit: '30' },
 				{ atkName: 'Mimi-Queue', type: 'Normal', dmg: '30', hit: '90', crit: '50' },
 				{ atkName: 'Distorsion', type: 'Psy', dmg: '70', hit: '95', crit: '70' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -170,7 +185,8 @@
 				{ atkName: 'Combo-Griffe', type: 'Normal', dmg: '10', hit: '90', crit: '30' },
 				{ atkName: 'Damoclès', type: 'Normal', dmg: '20', hit: '50', crit: '10' },
 				{ atkName: 'Furie', type: 'Normal', dmg: '13', hit: '100', crit: '10' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -184,7 +200,8 @@
 				{ atkName: 'Tonerre', type: 'Electrique', dmg: '15', hit: '90', crit: '35' },
 				{ atkName: 'Boule Elec', type: 'Electrique', dmg: '20', hit: '80', crit: '30' },
 				{ atkName: 'Vive attaque', type: 'Normal', dmg: '7', hit: '100', crit: '10' }
-			]
+			],
+			color: 'bg-white'
 		},
 
 		{
@@ -198,7 +215,8 @@
 				{ atkName: 'Ecrasement', type: 'Normal', dmg: '10', hit: '90', crit: '20' },
 				{ atkName: 'Pics Toxics', type: 'Poison', dmg: '18', hit: '95', crit: '30' },
 				{ atkName: 'Détritus', type: 'Poison', dmg: '7', hit: '100', crit: '60' }
-			]
+			],
+			color: 'bg-white'
 		},
 		{
 			pokemon: 'Chochodile',
@@ -211,7 +229,8 @@
 				{ atkName: 'Lance-Flamme', type: 'Feu', dmg: '16', hit: '95', crit: '20' },
 				{ atkName: 'Etincelles', type: 'Feu', dmg: '9', hit: '100', crit: '35' },
 				{ atkName: 'Morsure', type: 'Normal', dmg: '17', hit: '70', crit: '25' }
-			]
+			],
+			color: 'bg-white'
 		}
 	];
 </script>
@@ -220,18 +239,23 @@
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
+<Header />
+
+<main>
+	<slot />
+</main>
 
 <section>
 	<h1>
-		<span class="welcome">
-			<img class="p-5" src="../src/lib/images/Pokemon-No.png" alt="Pokemon No" />
+		<span class="p-4 flex flex-wrap gap-5 items-center justify-center">
+			<img class="p-5 w-96" src="../src/lib/images/Pokemon-No.png" alt="Pokemon No" />
 		</span>
 	</h1>
 </section>
 
-<p>{currentPlayer}</p>
+<p id="selection">C'est au joueur {currentPlayer} de choisir son Pokemon:</p>
 
-<div class="p-4 flex flex-wrap gap-5">
+<div class="p-4 flex flex-wrap gap-5 items-center justify-center">
 	<!--Envelopper-->
 	{#each Pokemons as Pokemon}
 		<Pokecard
@@ -245,7 +269,7 @@
 			def={Pokemon.def}
 			speed={Pokemon.speed}
 			moves={Pokemon.moves}
-			{playerColor}
+			playerColor={Pokemon.color}
 		></Pokecard>
 	{/each}
 </div>
