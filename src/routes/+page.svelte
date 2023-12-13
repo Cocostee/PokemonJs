@@ -15,21 +15,35 @@
 			pokemon: undefined
 		}
 	];
+
 	let playerColor = 'bg-white';
 
 	function handleClick(Pokemon) {
-		if (currentPlayer <= 2) {
-			let currentPlayerObj = players.find((player) => player.id === currentPlayer);
 
-			currentPlayerObj.pokemon = Pokemon;
-			currentPlayer++;
+    if (currentPlayer <= 2) {
+        let currentPlayerObj = players.find((player) => player.id === currentPlayer);
 
-			if (currentPlayer == 3) {
-				warningStartGame(currentPlayerObj);
-			}
-		}
-	}
+        currentPlayerObj.pokemon = Pokemon.pokemon;
 
+        if (currentPlayer === 1) {
+            currentPlayer = 2;
+        } else {
+            // currentPlayer est déjà égal à 2, donc réinitialise à 1 pour le prochain tour
+            currentPlayer = 1;
+
+            // Vérifiez si tous les joueurs ont choisi leur Pokémon
+            if (players.every(player => player.pokemon)) {
+				console.log(players);
+                warningStartGame(players);
+            }
+        }
+    }
+}
+
+
+	/**
+	 * @param {any[]} currentPlayerObj
+	 */
 	function warningStartGame(currentPlayerObj) {
 		const overlay = document.createElement('div');
 		overlay.style.position = 'fixed';
@@ -64,25 +78,9 @@
 
 				setTimeout(updateCountdown, 1150); // 1 second
 			} else {
-				countdownElement.innerText = 'START';
-				setTimeout(updateCountdown, 1500);
-				// Stop audio
-				audio.pause();
-				audio.currentTime = 0;
-
-				const form = document.createElement('form');
-				form.method = 'post';
-				form.action = '/combat'; // Replace with your server endpoint
-
-				// Create an input field for your variable
-				const input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'battle';
-				input.value = currentPlayerObj;
-
-				form.appendChild(input);
-				document.body.appendChild(form);
-				form.submit();
+				const url = `combat?pokemon1=${currentPlayerObj[0].pokemon}&pokemon2=${currentPlayerObj[1].pokemon}`;
+            
+				window.location.href = url;		
 			}
 		}
 		updateCountdown();
