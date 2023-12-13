@@ -6,6 +6,7 @@
 	export let def;
 	export let speed;
 	export let moves;
+	export let playerColor;
 	let colorType = 'text-black-700';
 
 	switch (type) {
@@ -35,25 +36,15 @@
 			break;
 	}
 
-	let currentPlayer = 1;
-	let playerColor = 'bg-white';
-
-	function handleClick() {
-    	if (currentPlayer == 1) {
-			playerColor = "border-color: blue"
-		} else if (currentPlayer == 2) {
-			playerColor = "border-color: red"
-		}
-		currentPlayer++;
-  	}
+	
 
 </script>
 
-<p>{currentPlayer}</p>
+
 
 <button
-	class="relative flex max-w-[24rem] flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
-	on:click={handleClick}
+	class="relative flex max-w-[24rem] flex-col overflow-hidden rounded-xl bg-gradient-to-b from-white to-red-500 bg-clip-border text-gray-700 shadow-md h-1/2"
+	on:click
 >
 	<div
 		class="relative flex flex-col text-gray-700 {playerColor} shadow-md bg-clip-border rounded-xl w-96"

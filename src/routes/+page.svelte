@@ -2,6 +2,36 @@
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import Pokecard from '$lib/components/Pokecard.svelte';
+	import '../styles.css';
+
+	let currentPlayer = 1;
+	let players = [
+		{
+			id: 1,
+			pokemon: undefined
+		},
+		{
+			id: 2,
+			pokemon: undefined
+		}
+	];
+	let playerColor = 'bg-white';
+
+	function handleClick(Pokemon) {
+		if (currentPlayer <= 2) {
+			let currentPlayerObj = players.find((player) => player.id === currentPlayer);
+
+			currentPlayerObj.pokemon = Pokemon;
+			currentPlayer++;
+
+			if (currentPlayer == 3) {
+			}
+		}
+	}
+
+	function warningStartGame() {
+
+	}
 
 	const Pokemons = [
 		{
@@ -13,7 +43,7 @@
 			speed: '10',
 			moves: [
 				{ atkName: 'Pistolet à eau', type: 'Eau', dmg: '10', hit: '90', crit: '20' },
-				{ atkName: 'Bulles d\'O', type: 'Eau', dmg: '5', hit: '40', crit: '90' },
+				{ atkName: "Bulles d'O", type: 'Eau', dmg: '5', hit: '40', crit: '90' },
 				{ atkName: 'Vive attaque', type: 'Normal', dmg: '7', hit: '100', crit: '10' }
 			]
 		},
@@ -110,9 +140,22 @@
 			def: '8',
 			speed: '8',
 			moves: [
-				{ atkName: 'Ecrasement', type: 'Eau', dmg: '10', hit: '90', crit: '20' },
+				{ atkName: 'Ecrasement', type: 'Normal', dmg: '10', hit: '90', crit: '20' },
 				{ atkName: 'Pics Toxics', type: 'Poison', dmg: '18', hit: '95', crit: '30' },
 				{ atkName: 'Détritus', type: 'Poison', dmg: '7', hit: '100', crit: '60' }
+			]
+		},
+		{
+			pokemon: 'Chochodile',
+			type: 'Feu',
+			life: '60',
+			atk: '12',
+			def: '10',
+			speed: '7',
+			moves: [
+				{ atkName: 'Lance-Flamme', type: 'Feu', dmg: '16', hit: '95', crit: '20' },
+				{ atkName: 'Etincelles', type: 'Feu', dmg: '9', hit: '100', crit: '35' },
+				{ atkName: 'Morsure', type: 'Normal', dmg: '17', hit: '70', crit: '25' }
 			]
 		}
 	];
@@ -126,25 +169,36 @@
 <section>
 	<h1>
 		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
+			<img
+				class="p-5"
+				src="../src/lib/images/Pokemon-No.png"
+				alt="Pokemon No"
+			/>
 		</span>
 	</h1>
 </section>
 
-{#each Pokemons as Pokemon}
-	<Pokecard
-		pokemon={Pokemon.pokemon}
-		type={Pokemon.type}
-		life={Pokemon.life}
-		atk={Pokemon.atk}
-		def={Pokemon.def}
-		speed={Pokemon.speed}
-		moves={Pokemon.moves}
-	></Pokecard>
-{/each}
+<div id="countdown"></div>
+
+<p>{currentPlayer}</p>
+<div class="p-4 flex flex-wrap gap-5">
+	<!--Envelopper-->
+	{#each Pokemons as Pokemon}
+		<Pokecard
+			on:click={() => {
+				handleClick(Pokemon);
+			}}
+			pokemon={Pokemon.pokemon}
+			type={Pokemon.type}
+			life={Pokemon.life}
+			atk={Pokemon.atk}
+			def={Pokemon.def}
+			speed={Pokemon.speed}
+			moves={Pokemon.moves}
+			{playerColor}
+		></Pokecard>
+	{/each}
+</div>
 
 <style>
 	section {
