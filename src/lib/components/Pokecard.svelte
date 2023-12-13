@@ -4,6 +4,8 @@
 	export let life;
 	export let atk;
 	export let def;
+	export let speed;
+	export let moves;
 	let colorType = 'text-black-700';
 
 	switch (type) {
@@ -26,19 +28,35 @@
 			colorType = 'bg-purple-600';
 			break;
 		case 'Glace':
-			colorType = 'bg-purple-600';
+			colorType = 'bg-blue-300';
 			break;
 		case 'Normal':
-			colorType = 'bg-blue-200';
+			colorType = 'bg-gray-700';
 			break;
 	}
+
+	let currentPlayer = 1;
+	let player1Color = '';
+	let player2Color = '';
+
+	function handleClick() {
+    	if (currentPlayer == 1) {
+			player1Color = "border-color: blue"
+		} else if (currentPlayer == 2) {
+			player2Color = "border-color: red"
+		}
+		currentPlayer++;
+  	}
+
 </script>
 
 <button
 	class="relative flex max-w-[24rem] flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
+	on:click={handleClick}
 >
 	<div
 		class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
+		style = "border-color: {highlight}"
 	>
 		<div
 			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-80"
@@ -56,27 +74,56 @@
 				{pokemon}
 			</h4>
 			<div
-				class="block font-sans text-base antialiased font-medium leading-relaxed text-transparent bg-clip-text bg-black"
+				class="block font-sans text-base antialiased font-medium leading-relaxed text-transparent bg-clip-text {colorType} rounded p-4"
 			>
 				{type}
 			</div>
 		</div>
 		<div class="flex justify-center p-6 pt-2 gap-7">
-			<div
+			<p
 				class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-blue-600 to-blue-400"
 			>
-				<i class="fab fa-facebook" aria-hidden="true"> {life}</i>
-			</div>
-			<div
-				class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-light-blue-600 to-light-blue-400"
+				<!-- svelte-ignore a11y-img-redundant-alt -->
+				<img
+					class="object-cover h-15 w-15"
+					src="../src/lib/images/heart.png"
+					alt="picture of an heart"
+				/>
+				{life}
+			</p>
+			<p
+				class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-blue-600 to-blue-400"
 			>
-				<i class="fab fa-twitter" aria-hidden="true"> {atk} </i>
-			</div>
-			<div
-				class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-purple-600 to-purple-400"
+				<!-- svelte-ignore a11y-img-redundant-alt -->
+				<img
+					class="object-cover h-15 w-15"
+					src="../src/lib/images/sword.png"
+					alt="picture of an sword"
+				/>
+				{atk}
+			</p>
+			<p
+				class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-blue-600 to-blue-400"
 			>
-				<i class="fab fa-instagram" aria-hidden="true"> {def} </i>
-			</div>
+				<!-- svelte-ignore a11y-img-redundant-alt -->
+				<img
+					class="object-cover h-15 w-15"
+					src="../src/lib/images/shield.png"
+					alt="picture of an shield"
+				/>
+				{def}
+			</p>
+			<p
+				class="block font-sans text-xl antialiased font-normal leading-relaxed text-transparent bg-clip-text bg-gradient-to-tr from-blue-600 to-blue-400"
+			>
+				<!-- svelte-ignore a11y-img-redundant-alt -->
+				<img
+					class="object-cover h-15 w-15"
+					src="../src/lib/images/speed.png"
+					alt="picture of speeeeeed"
+				/>
+				{def}
+			</p>
 		</div>
-	</div></button
->
+	</div>
+</button>
