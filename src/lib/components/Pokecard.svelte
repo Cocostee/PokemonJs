@@ -36,27 +36,27 @@
 	}
 
 	let currentPlayer = 1;
-	let player1Color = '';
-	let player2Color = '';
+	let playerColor = 'bg-white';
 
 	function handleClick() {
     	if (currentPlayer == 1) {
-			player1Color = "border-color: blue"
+			playerColor = "border-color: blue"
 		} else if (currentPlayer == 2) {
-			player2Color = "border-color: red"
+			playerColor = "border-color: red"
 		}
 		currentPlayer++;
   	}
 
 </script>
 
+<p>{currentPlayer}</p>
+
 <button
 	class="relative flex max-w-[24rem] flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
 	on:click={handleClick}
 >
 	<div
-		class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
-		style = "border-color: {highlight}"
+		class="relative flex flex-col text-gray-700 {playerColor} shadow-md bg-clip-border rounded-xl w-96"
 	>
 		<div
 			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-80"
