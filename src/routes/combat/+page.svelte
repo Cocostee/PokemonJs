@@ -69,24 +69,26 @@
      * @param {number} attaque
      */
     function effectuerAction(joueur, attaque) {
-        let pokemonCible = joueur === 1 ? PokemonJoueur2 : PokemonJoueur1;
-        let attaqueCible = pokemonCible.moves[attaque];
+        
+        let pokemonAttaquant = joueur === 1 ? PokemonJoueur1 : PokemonJoueur2;
+        let attaquePokemon = pokemonAttaquant.moves[attaque];
 
-        let degats = attaqueCible.dmg;
+        let pokemonAttaque = joueur === 1 ? PokemonJoueur2 : PokemonJoueur1;
 
-        pokemonCible.life -= degats;
+        let degats = attaquePokemon.dmg;
 
-        // Update the HTML view to reflect the changes in the Pokémon's life
+        pokemonAttaque.life -= degats;
+
         $: PokemonJoueur1 = { ...PokemonJoueur1 };
         $: PokemonJoueur2 = { ...PokemonJoueur2 };
 
-        let message = `${pokemonCible.pokemon} a utilisé ${attaqueCible.atkName} et a infligé ${degats} dégâts.`;
+        let message = `${pokemonAttaquant.pokemon} a utilisé ${attaquePokemon.atkName} et a infligé ${degats} dégâts à ${pokemonAttaque.pokemon}.`;
 
-        // Update the attackMessage variable
         $: attackMessage = message;
 
         passerTour();
     }
+
 
     $: isPlayer1Turn = tourJoueur === 1;
 
