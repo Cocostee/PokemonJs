@@ -47,7 +47,7 @@
 </script>
 
 <button
-	class="relative flex max-w-[20rem] flex-col overflow-hidden rounded-xl bg-gradient-to-b bg-white bg-clip-border text-gray-700 shadow-md h-1/2"
+	class="relative flex max-w-[20rem] flex-col overflow-hidden rounded-xl bg-gradient-to-b {playerColor} bg-clip-border text-gray-700 shadow-md h-1/2"
 	on:click
 >
 	<div class="relative flex flex-col text-gray-700 shadow-md bg-clip-border rounded-xl w-86">

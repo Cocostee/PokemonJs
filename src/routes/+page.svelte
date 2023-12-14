@@ -1,9 +1,12 @@
-<script>
+<script lang="ts">
 	import Header from './Header.svelte';
 	import Pokecard from '$lib/components/Pokecard.svelte';
+	import Overlay from '$lib/components/Overlay.svelte';
 	import '../styles.css';
 
-	let currentPlayer = 1;
+	let ready = false;
+	let description: string | undefined;
+	let currentPlayerId = 1;
 	let players = [
 		{
 			id: 1,
@@ -28,88 +31,50 @@
 				pokemon: undefined
 			}
 		];
-		currentPlayer = 1;
+		currentPlayerId = 1;
+		Pokemons = Pokemons.map((pokemon) => {
+			return {
+				...pokemon, // Copier toutes les propriétés existantes
+				color: 'bg-white' // Mettre à jour la propriété 'color'
+			};
+		});
 	}
 
-	function handleClick(Pokemon) {
-		if (currentPlayer <= 2) {
-			let currentPlayerObj = players.find((player) => player.id === currentPlayer);
+	function handleClick(PokemonObj) {
+		if (currentPlayerId >= 3) return;
 
-			currentPlayerObj.pokemon = Pokemon.pokemon;
+		const currentPlayer = players.find((player) => player.id === currentPlayerId);
+		currentPlayer!.pokemon = PokemonObj.pokemon;
 
-			if (currentPlayer == 1) Pokemon.color = 'bg-blue-200';
-			else if (currentPlayer == 2) {
-				if (Pokemon.color != 'bg-white') {
-					Pokemon.color = 'bg-red-200';
-				} else {
-					Pokemon.color = 'bg-gradient-to-r from-blue-200 to-red-200';
-				}
-			}
-
-			if (currentPlayer === 1) {
-				currentPlayer = 2;
+		if (currentPlayerId == 1) PokemonObj.color = 'bg-blue-200';
+		else if (currentPlayerId == 2) {
+			if (PokemonObj.color == 'bg-white') {
+				PokemonObj.color = 'bg-red-200';
 			} else {
-				// currentPlayer est déjà égal à 2, donc réinitialise à 1 pour le prochain tour
-				currentPlayer = 1;
+				PokemonObj.color = 'bg-gradient-to-r from-blue-200 to-red-200';
+			}
+		}
+		Pokemons = Pokemons;
 
-				// Vérifiez si tous les joueurs ont choisi leur Pokémon
-				if (players.every((player) => player.pokemon)) {
-					console.log(players);
-					warningStartGame(players);
-				}
+		if (currentPlayerId === 1) {
+			currentPlayerId = 2;
+		} else {
+			// currentPlayer est déjà égal à 2, donc réinitialise à 1 pour le prochain tour
+			currentPlayerId = 1;
+
+			// Vérifiez si tous les joueurs ont choisi leur Pokémon
+			if (players.every((player) => player.pokemon)) {
+				ready = true;
+				description = 'Les Pokémons ont été séléctionnés !';
 			}
 		}
 	}
 
-	/**
-	 * @param {any[]} currentPlayerObj
-	 */
-	function warningStartGame(currentPlayerObj) {
-		const descriptionElement = document.getElementById('selection');
-		descriptionElement.innerHTML = 'Les Pokémons ont été séléctionnés !';
-
-		const overlay = document.createElement('div');
-		overlay.style.position = 'fixed';
-		overlay.style.top = '0';
-		overlay.style.left = '0';
-		overlay.style.width = '100%';
-		overlay.style.height = '100%';
-		overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // semi-transparent black background
-		overlay.style.zIndex = '1000'; // Set a high z-index to ensure it's on top of everything
-		overlay.style.display = 'flex';
-		overlay.style.alignItems = 'center';
-		overlay.style.justifyContent = 'center';
-		document.body.appendChild(overlay);
-
-		// Create the countdown element
-		const countdownElement = document.createElement('div');
-		countdownElement.id = 'countdown';
-		overlay.appendChild(countdownElement);
-		const colors = ['text-green-500', 'text-orange-500', 'text-red-700']; // Add more colors if needed
-
-		const audio = new Audio('/music/countdown.mp3');
-		audio.play();
-		let countdown = 3;
-		countdownElement.style.fontFamily = "'Comic Sans MS', cursive";
-		countdownElement.style.fontSize = '25em';
-
-		function updateCountdown() {
-			if (countdown > 0) {
-				countdownElement.innerText = countdown;
-				countdownElement.className = colors[countdown - 1]; // Use className to set the color
-				countdown--;
-
-				setTimeout(updateCountdown, 1150); // 1 second
-			} else {
-				const url = `combat?pokemon1=${currentPlayerObj[0].pokemon}&pokemon2=${currentPlayerObj[1].pokemon}`;
-
-				window.location.href = url;
-			}
-		}
-		updateCountdown();
+	function startCombat() {
+		window.location.href = `combat?pokemon1=${players[0].pokemon}&pokemon2=${players[1].pokemon}`;
 	}
 
-	const Pokemons = [
+	let Pokemons = [
 		{
 			pokemon: 'Carapuce',
 			type: 'Eau',
@@ -258,56 +223,60 @@
 			color: 'bg-white'
 		},
 		{
-			pokemon: "Rayquaza",
-			type: "Dragon",
-			life: "105",
-			atk: "150",
-			def: "90",
-			speed: "95",
+			pokemon: 'Rayquaza',
+			type: 'Dragon',
+			life: '105',
+			atk: '150',
+			def: '90',
+			speed: '95',
 			moves: [
-				{ atkName: "Draco Météore", "type": "Dragon", "dmg": "120", "hit": "85", "crit": "25" },
-				{ atkName: "Ouragan", "type": "Vol", "dmg": "110", "hit": "90", "crit": "15" },
-				{ atkName: "Lame d'Air", "type": "Vol", "dmg": "80", "hit": "100", "crit": "30" }
-			]
+				{ atkName: 'Draco Météore', type: 'Dragon', dmg: '120', hit: '85', crit: '25' },
+				{ atkName: 'Ouragan', type: 'Vol', dmg: '110', hit: '90', crit: '15' },
+				{ atkName: "Lame d'Air", type: 'Vol', dmg: '80', hit: '100', crit: '30' }
+			],
+			color: 'bg-white'
 		},
 		{
-			pokemon: "Arceus",
-			type: "Normal",
-			life: "120",
-			atk: "120",
-			def: "120",
-			speed: "120",
+			pokemon: 'Arceus',
+			type: 'Normal',
+			life: '120',
+			atk: '120',
+			def: '120',
+			speed: '120',
 			moves: [
-			{ atkName: "Jugement", "type": "Normal", "dmg": "150", "hit": "90", "crit": "20" },
-			{ atkName: "Eclat Magique", "type": "Fée", "dmg": "100", "hit": "100", "crit": "15" },
-			{ atkName: "Aurores Boréales", "type": "Glace", "dmg": "120", "hit": "80", "crit": "25" }
-			]
+				{ atkName: 'Jugement', type: 'Normal', dmg: '150', hit: '90', crit: '20' },
+				{ atkName: 'Eclat Magique', type: 'Fée', dmg: '100', hit: '100', crit: '15' },
+				{ atkName: 'Aurores Boréales', type: 'Glace', dmg: '120', hit: '80', crit: '25' }
+			],
+			color: 'bg-white'
 		},
 		{
-			pokemon: "Groudon",
-			type: "Sol",
-			life: "130",
-			atk: "140",
-			def: "150",
-			speed: "90",
+			pokemon: 'Groudon',
+			type: 'Sol',
+			life: '130',
+			atk: '140',
+			def: '150',
+			speed: '90',
 			moves: [
-			{ atkName: "Séisme", "type": "Sol", "dmg": "130", "hit": "85", "crit": "15" },
-			{ atkName: "Lame de Roc", "type": "Roche", "dmg": "110", "hit": "95", "crit": "20" },
-			{ atkName: "Ebullition", "type": "Eau", "dmg": "90", "hit": "100", "crit": "25" }
-			]
+				{ atkName: 'Séisme', type: 'Sol', dmg: '130', hit: '85', crit: '15' },
+				{ atkName: 'Lame de Roc', type: 'Roche', dmg: '110', hit: '95', crit: '20' },
+				{ atkName: 'Ebullition', type: 'Eau', dmg: '90', hit: '100', crit: '25' }
+			],
+			color: 'bg-white'
 		},
 		{
-			pokemon: "Lugia",
-			type: "Vol",
-			life: "140",
-			atk: "110",
-			def: "140",
-			speed: "110",
+			pokemon: 'Lugia',
+			type: 'Vol',
+			life: '140',
+			atk: '110',
+			def: '140',
+			speed: '110',
 			moves: [
-			{ "atkName": "Psyko", "type": "Psy", "dmg": "120", "hit": "90", "crit": "20" },
-			{ "atkName": "Aéropique", "type": "Vol", "dmg": "100", "hit": "95", "crit": "15" },
-			{ "atkName": "Soin", "type": "Psy", "dmg": "0", "hit": "100", "crit": "10" }
-			]
+				{ atkName: 'Psyko', type: 'Psy', dmg: '120', hit: '90', crit: '20' },
+				{ atkName: 'Aéropique', type: 'Vol', dmg: '100', hit: '95', crit: '15' },
+				{ atkName: 'Soin', type: 'Psy', dmg: '0', hit: '100', crit: '10' }
+			],
+			color: 'bg-white'
 		}
 	];
 </script>
@@ -317,6 +286,10 @@
 	<meta name="description" content="Pokemon No" />
 </svelte:head>
 <Header />
+
+{#if ready}
+	<Overlay startCombat={startCombat} on:timeout={() => {startCombat()}}></Overlay>
+{/if}
 
 <main>
 	<slot />
@@ -331,10 +304,13 @@
 </section>
 
 <h2
-	id="selection"
 	class="select-none rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xl font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mb-5 mt-2"
 >
-	C'est au joueur {currentPlayer} de choisir son Pokemon
+	{#if description}
+		{description}
+	{:else}
+		C'est au joueur {currentPlayerId} de choisir son Pokemon
+	{/if}
 </h2>
 <button
 	class="disabled:bg-red-50 select-none m-2 rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
