@@ -11,28 +11,28 @@
 
 	switch (type) {
 		case 'Plante':
-			colorType = 'bg-green-300';
+			colorType = 'green-300';
 			break;
 		case 'Eau':
-			colorType = 'bg-blue-500';
+			colorType = 'blue-500';
 			break;
 		case 'Feu':
-			colorType = 'bg-red-700';
+			colorType = 'red-700';
 			break;
 		case 'Electrique':
-			colorType = 'bg-yellow-300';
+			colorType = 'yellow-300';
 			break;
 		case 'Psy':
-			colorType = 'bg-pink-300';
+			colorType = 'pink-300';
 			break;
 		case 'Poison':
-			colorType = 'bg-purple-600';
+			colorType = 'purple-600';
 			break;
 		case 'Glace':
-			colorType = 'bg-blue-300';
+			colorType = 'blue-300';
 			break;
 		case 'Normal':
-			colorType = 'bg-gray-700';
+			colorType = 'gray-700';
 			break;
 	}
 
@@ -43,17 +43,17 @@
 
 
 <button
-	class="relative flex max-w-[24rem] flex-col overflow-hidden rounded-xl bg-gradient-to-b from-white to-red-500 bg-clip-border text-gray-700 shadow-md h-1/2"
+	class="relative flex max-w-[20rem] flex-col overflow-hidden rounded-xl bg-gradient-to-b bg-white bg-clip-border text-gray-700 shadow-md h-1/2"
 	on:click
 >
 	<div
-		class="relative flex flex-col text-gray-700 {playerColor} shadow-md bg-clip-border rounded-xl w-96"
+		class="relative flex flex-col text-gray-700 shadow-md bg-clip-border rounded-xl w-86"
 	>
 		<div
-			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-80"
+			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-{playerColor} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
 		>
 			<img
-				class="object-cover object-center rounded-full h-96 w-96"
+				class="object-cover object-center h-96 w-96"
 				src="../src/lib/images/{pokemon}.png"
 				alt="picture of an {pokemon}"
 			/>
@@ -65,9 +65,9 @@
 				{pokemon}
 			</h4>
 			<div
-				class="block font-sans text-base antialiased font-medium leading-relaxed text-transparent bg-clip-text {colorType} rounded p-4"
+				class="block font-sans text-base antialiased font-medium leading-relaxed text-{colorType} bg-clip-text p-4"
 			>
-				{type}
+				{type} 
 			</div>
 		</div>
 		<div class="flex justify-center p-6 pt-2 gap-7">
