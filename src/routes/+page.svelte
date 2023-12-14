@@ -15,39 +15,58 @@
 		}
 	];
 
-
 	let playerColor = 'bg-white';
 
+	function resetPokemon() {
+		players = [
+			{
+				id: 1,
+				pokemon: undefined
+			},
+			{
+				id: 2,
+				pokemon: undefined
+			}
+		];
+		currentPlayer = 1;
+	}
 
 	function handleClick(Pokemon) {
+		if (currentPlayer <= 2) {
+			let currentPlayerObj = players.find((player) => player.id === currentPlayer);
 
-    if (currentPlayer <= 2) {
-        let currentPlayerObj = players.find((player) => player.id === currentPlayer);
+			currentPlayerObj.pokemon = Pokemon.pokemon;
 
-        currentPlayerObj.pokemon = Pokemon.pokemon;
+			if (currentPlayer == 1) Pokemon.color = 'bg-blue-200';
+			else if (currentPlayer == 2) {
+				if (Pokemon.color != 'bg-white') {
+					Pokemon.color = 'bg-red-200';
+				} else {
+					Pokemon.color = 'bg-gradient-to-r from-blue-200 to-red-200';
+				}
+			}
 
-        if (currentPlayer === 1) {
-            currentPlayer = 2;
-        } else {
-            // currentPlayer est déjà égal à 2, donc réinitialise à 1 pour le prochain tour
-            currentPlayer = 1;
+			if (currentPlayer === 1) {
+				currentPlayer = 2;
+			} else {
+				// currentPlayer est déjà égal à 2, donc réinitialise à 1 pour le prochain tour
+				currentPlayer = 1;
 
-            // Vérifiez si tous les joueurs ont choisi leur Pokémon
-            if (players.every(player => player.pokemon)) {
-				        console.log(players);
-                warningStartGame(players);
-            }
-        }
-    }
-}
-
+				// Vérifiez si tous les joueurs ont choisi leur Pokémon
+				if (players.every((player) => player.pokemon)) {
+					console.log(players);
+					warningStartGame(players);
+				}
+			}
+		}
+	}
 
 	/**
 	 * @param {any[]} currentPlayerObj
 	 */
 	function warningStartGame(currentPlayerObj) {
 		const descriptionElement = document.getElementById('selection');
-		descriptionElement.innerHTML = 'Les Pokémons ont été séléctionnés!';
+		descriptionElement.innerHTML = 'Les Pokémons ont été séléctionnés !';
 
 		const overlay = document.createElement('div');
 		overlay.style.position = 'fixed';
@@ -82,11 +101,9 @@
 
 				setTimeout(updateCountdown, 1150); // 1 second
 			} else {
-
 				const url = `combat?pokemon1=${currentPlayerObj[0].pokemon}&pokemon2=${currentPlayerObj[1].pokemon}`;
-            
-				window.location.href = url;	
-        
+
+				window.location.href = url;
 			}
 		}
 		updateCountdown();
@@ -231,7 +248,7 @@
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="Pokemon No" />
 </svelte:head>
 <Header />
 
@@ -247,7 +264,17 @@
 	</h1>
 </section>
 
-<p id="selection">C'est au joueur {currentPlayer} de choisir son Pokemon:</p>
+<h2
+	id="selection"
+	class="select-none rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xl font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mb-5 mt-2"
+>
+	C'est au joueur {currentPlayer} de choisir son Pokemon
+</h2>
+<button
+	class="disabled:bg-red-50 select-none m-2 rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
+	type="button"
+	on:click={() => resetPokemon()}>Reset Pokemon</button
+>
 
 <div class="p-4 flex flex-wrap gap-5 items-center justify-center">
 	<!--Envelopper-->
