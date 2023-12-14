@@ -27,6 +27,7 @@
 
 	/**
 	 * @type {{ pokemon: any; life: any; moves: any; type?: string; atk?: string; def?: string; speed?: string; }}
+	 *
 	 */
 	let PokemonJoueur1;
 
@@ -76,7 +77,6 @@
 	 * @param {number} attaque
 	 */
 	function effectuerAction(joueur, attaque) {
-        
 		let pokemonAttaquant = joueur === 1 ? PokemonJoueur1 : PokemonJoueur2;
 		let attaquePokemon = pokemonAttaquant.moves[attaque];
 
@@ -88,8 +88,8 @@
 		// Show the GIF
 		gifElement.style.display = 'block';
 
-        const slashSound = new Audio('./music/slash_sound.mp3');
-        slashSound.play();
+		const slashSound = new Audio('./music/slash_sound.mp3');
+		slashSound.play();
 
 		// Wait for 1 seconds
 		setTimeout(function () {
@@ -99,20 +99,20 @@
 
 		let degats = attaquePokemon.dmg;
 
-        // Vérifier l'avantage de type
-        if (attaquePokemon.type === "Eau" && pokemonAttaque.type === "Plante") {
-            degats *= 0.5;
-        } else if (attaquePokemon.type === "Plante" && pokemonAttaque.type === "Eau") {
-            degats *= 1.5;
-        } else if (attaquePokemon.type === "Feu" && pokemonAttaque.type === "Plante") {
-            degats *= 2;
-        } else if (attaquePokemon.type === "Plante" && pokemonAttaque.type === "Feu") {
-            degats *= 0.5;
-        } else if (attaquePokemon.type === "Feu" && pokemonAttaque.type === "Eau") {
-            degats *= 0.5;
-        } else if (attaquePokemon.type === "Eau" && pokemonAttaque.type === "Feu") {
-            degats *= 2;
-        }
+		// Vérifier l'avantage de type
+		if (attaquePokemon.type === 'Eau' && pokemonAttaque.type === 'Plante') {
+			degats *= 0.5;
+		} else if (attaquePokemon.type === 'Plante' && pokemonAttaque.type === 'Eau') {
+			degats *= 1.5;
+		} else if (attaquePokemon.type === 'Feu' && pokemonAttaque.type === 'Plante') {
+			degats *= 2;
+		} else if (attaquePokemon.type === 'Plante' && pokemonAttaque.type === 'Feu') {
+			degats *= 0.5;
+		} else if (attaquePokemon.type === 'Feu' && pokemonAttaque.type === 'Eau') {
+			degats *= 0.5;
+		} else if (attaquePokemon.type === 'Eau' && pokemonAttaque.type === 'Feu') {
+			degats *= 2;
+		}
 
 		pokemonAttaque.life -= degats;
 
@@ -125,7 +125,7 @@
 
 		if (pokemonAttaque.life <= 0) {
 			// Afficher une alerte indiquant le gagnant
-            stopAllAudio();
+			stopAllAudio();
 
 			alert(`Le joueur ${joueur} a remporté la victoire avec ${pokemonAttaquant.pokemon} !`);
 
