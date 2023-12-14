@@ -86,6 +86,21 @@
 
 		let degats = attaquePokemon.dmg;
 
+        // Vérifier l'avantage de type
+        if (attaquePokemon.type === "Eau" && pokemonAttaque.type === "Plante") {
+            degats *= 0.5;
+        } else if (attaquePokemon.type === "Plante" && pokemonAttaque.type === "Eau") {
+            degats *= 1.5;
+        } else if (attaquePokemon.type === "Feu" && pokemonAttaque.type === "Plante") {
+            degats *= 2;
+        } else if (attaquePokemon.type === "Plante" && pokemonAttaque.type === "Feu") {
+            degats *= 0.5;
+        } else if (attaquePokemon.type === "Feu" && pokemonAttaque.type === "Eau") {
+            degats *= 0.5;
+        } else if (attaquePokemon.type === "Eau" && pokemonAttaque.type === "Feu") {
+            degats *= 2;
+        }
+
 		pokemonAttaque.life -= degats;
 
 		$: PokemonJoueur1 = { ...PokemonJoueur1 };
