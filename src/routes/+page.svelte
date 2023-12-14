@@ -87,7 +87,7 @@
 		overlay.appendChild(countdownElement);
 		const colors = ['text-green-500', 'text-orange-500', 'text-red-700']; // Add more colors if needed
 
-		const audio = new Audio('../src/lib/music/countdown.mp3');
+		const audio = new Audio('/music/countdown.mp3');
 		audio.play();
 		let countdown = 3;
 		countdownElement.style.fontFamily = "'Comic Sans MS', cursive";

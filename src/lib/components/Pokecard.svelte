@@ -47,7 +47,7 @@
 		>
 			<img
 				class="object-cover object-center h-96 w-96"
-				src="../src/lib/images/{pokemon}.png"
+				src="images/{pokemon}.png"
 				alt="picture of an {pokemon}"
 			/>
 		</div>
