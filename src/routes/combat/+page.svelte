@@ -1,58 +1,67 @@
 <script>
-    import TerreSauvage from '$lib/images/TerreSauvage2.jpg';
-    
-    // Fonction pour extraire les paramètres de l'URL
+    import TerreSauvage from '$lib/images/TerreSauvage2.jpg'; 
+    import { page } from '$app/stores'
+    import pokemonData from './pokemon.json';
+
+    const pokemon1 = $page.url.searchParams.get('pokemon1');
+    const pokemon2 = $page.url.searchParams.get('pokemon2');
+
     /**
-	 * @param {string} name
+	 * @param {string | null} name
 	 */
-    function getParameterByName(name, url = window.location.href) {
-        name = name.replace(/[[]]/g, "\\$&");
-        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
-        const results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    function findPokemonByName(name) {
+        return pokemonData.find(pokemon => pokemon.pokemon === name);
     }
 
-    // Récupérer le nom des Pokémon pour chaque joueur
-    const pokemonJoueur1Nom = getParameterByName('pokemon1');
-    const pokemonJoueur2Nom = getParameterByName('pokemon2');
 
-    // Afficher les noms dans la console
-    console.log(`Nom du Pokémon du Joueur 1: ${pokemonJoueur1Nom}`);
-    console.log(`Nom du Pokémon du Joueur 2: ${pokemonJoueur2Nom}`);
-    
-    let PokemonJoueur1 = {
-        pokemon: 'Tadmorv',
-        type: 'Poison',
-        life: 70,
-        atk: 7,
-        def: 8,
-        speed: 8,
-        moves: [
-            { atkName: 'Ecrasement', type: 'Eau', dmg: 10, hit: 90, crit: 20 },
-            { atkName: 'Pics Toxics', type: 'Poison', dmg: 18, hit: 95, crit: 30 },
-            { atkName: 'Détritus', type: 'Poison', dmg: 7, hit: 100, crit: 60 }
-        ]
-    };
+    // Trouver et attribuer les données à PokemonJoueur1
+    const pokemonData1 = findPokemonByName(pokemon1);
 
-    let PokemonJoueur2 = {
-        pokemon: 'Tadmorv',
-        type: 'Poison',
-        life: 70,
-        atk: 7,
-        def: 8,
-        speed: 8,
-        moves: [
-            { atkName: 'Ecrasement', type: 'Eau', dmg: 10, hit: 90, crit: 20 },
-            { atkName: 'Pics Toxics', type: 'Poison', dmg: 18, hit: 95, crit: 30 },
-            { atkName: 'Détritus', type: 'Poison', dmg: 7, hit: 100, crit: 60 }
-        ]
+    /**
+	 * @type {{ pokemon: any; life: any; moves: any; type?: string; atk?: string; def?: string; speed?: string; }}
+	 */
+    let PokemonJoueur1;
+
+    if (pokemonData1) {
+    PokemonJoueur1 = {
+        pokemon: pokemonData1.pokemon,
+        type: pokemonData1.type,
+        life: pokemonData1.life,
+        atk: pokemonData1.atk,
+        def: pokemonData1.def,
+        speed: pokemonData1.speed,
+        moves: pokemonData1.moves
     };
+    } else {
+    console.error(`Le Pokémon "${pokemon1}" n'a pas été trouvé dans les données.`);
+    }
+
+
+    // Trouver et attribuer les données à PokemonJoueur2
+    const pokemonData2 = findPokemonByName(pokemon2);
+
+    /**
+	 * @type {{ pokemon: any; life: any; moves: any; type?: string; atk?: string; def?: string; speed?: string; }}
+	 */
+    let PokemonJoueur2;
+
+    if (pokemonData2) {
+    PokemonJoueur2 = {
+        pokemon: pokemonData2.pokemon,
+        type: pokemonData2.type,
+        life: pokemonData2.life,
+        atk: pokemonData2.atk,
+        def: pokemonData2.def,
+        speed: pokemonData2.speed,
+        moves: pokemonData2.moves
+    };
+    } else {
+    console.error(`Le Pokémon "${pokemon2}" n'a pas été trouvé dans les données.`);
+    }
 
     let tourJoueur = 1;
 
-    // Declare the attackMessage variable
+    // attackMessage variable
     let attackMessage = "Aucune attaque n'a été effectuée.";
 
     /**
@@ -97,6 +106,7 @@
         <picture class="relative block">
             <img src="/images/TerreSauvage2.jpg" alt="area" class="h-[400px] w-[1000px] rounded-xl" />
             <img src="/images/{PokemonJoueur1.pokemon}.png" alt="pokemonjoueur1" class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl" />
+            <img src="/images/{PokemonJoueur2.pokemon}.png" alt="pokemonjoueur2" class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl" />
         </picture>
     </div>
 
