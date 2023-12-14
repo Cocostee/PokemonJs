@@ -50,7 +50,7 @@
 		class="relative flex flex-col text-gray-700 shadow-md bg-clip-border rounded-xl w-86"
 	>
 		<div
-			class="relative mx-4 mt-4 overflow-hidden text-gray-700 {playerColor} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
+			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-{playerColor} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
 		>
 			<img
 				class="object-cover object-center h-96 w-96"
@@ -65,9 +65,9 @@
 				{pokemon}
 			</h4>
 			<div
-				class="block font-sans text-base antialiased font-medium leading-relaxed text-transparent bg-clip-text bg-{colorType} rounded p-4"
+				class="block font-sans text-base antialiased font-medium leading-relaxed text-{colorType} bg-clip-text p-4"
 			>
-				{type}
+				{type} 
 			</div>
 		</div>
 		<div class="flex justify-center p-6 pt-2 gap-7">
