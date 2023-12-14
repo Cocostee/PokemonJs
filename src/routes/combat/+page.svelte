@@ -174,7 +174,7 @@
 				<img
 					src="/images/{PokemonJoueur2.pokemon}.png"
 					alt="pokemonjoueur2"
-					class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+					class="absolute top-1/2 left-0 transform -scale-x-100 -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
 				/>
 			{/if}
 
