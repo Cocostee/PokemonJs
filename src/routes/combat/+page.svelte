@@ -67,6 +67,7 @@
 	 * @param {number} attaque
 	 */
 	function effectuerAction(joueur, attaque) {
+        
 		let pokemonAttaquant = joueur === 1 ? PokemonJoueur1 : PokemonJoueur2;
 		let attaquePokemon = pokemonAttaquant.moves[attaque];
 
@@ -78,9 +79,9 @@
 		// Show the GIF
 		gifElement.style.display = 'block';
 
-		// Wait for 2 seconds
+		// Wait for 1 seconds
 		setTimeout(function () {
-			// Hide the GIF after 2 seconds
+			// Hide the GIF after 1 seconds
 			gifElement.style.display = 'none';
 		}, 1000);
 
