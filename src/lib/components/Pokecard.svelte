@@ -11,37 +11,37 @@
 
 	switch (type) {
 		case 'Plante':
-			colorType = 'green-300';
+			colorType = 'bg-green-300';
 			break;
 		case 'Eau':
-			colorType = 'blue-500';
+			colorType = 'bg-blue-500';
 			break;
 		case 'Feu':
-			colorType = 'red-700';
+			colorType = 'bg-red-700';
 			break;
 		case 'Electrique':
-			colorType = 'yellow-300';
+			colorType = 'bg-yellow-300';
 			break;
 		case 'Psy':
-			colorType = 'pink-300';
+			colorType = 'bg-pink-300';
 			break;
 		case 'Poison':
-			colorType = 'purple-600';
+			colorType = 'bg-purple-600';
 			break;
 		case 'Glace':
-			colorType = 'blue-300';
+			colorType = 'bg-blue-300';
 			break;
 		case 'Normal':
-			colorType = 'gray-700';
+			colorType = 'bg-gray-700';
 			break;
 		case 'Dragon':
-			colorType = 'orange-400';
+			colorType = 'bg-red-400';
 			break;
 		case 'Sol':
-			colorType = 'orange-900';
+			colorType = 'bg-orange-900';
 			break;
 		case 'Vol':
-			colorType = 'white';
+			colorType = 'bg-white';
 			break;
 	}
 </script>
@@ -52,7 +52,7 @@
 >
 	<div class="relative flex flex-col text-gray-700 shadow-md bg-clip-border rounded-xl w-86">
 		<div
-			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-{colorType} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
+			class="relative mx-4 mt-4 overflow-hidden text-gray-700 {colorType} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
 		>
 			{#if pokemon === 'Astley'}
 				<img
