@@ -1,5 +1,6 @@
 <script>
 	import TerreSauvage from '$lib/images/TerreSauvage2.jpg';
+	import JeTenik from '$lib/music/Aller, je te nique.mp4';
 	import { page } from '$app/stores';
 	import pokemonData from './pokemon.json';
 
