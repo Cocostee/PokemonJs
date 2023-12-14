@@ -43,7 +43,7 @@
 >
 	<div class="relative flex flex-col text-gray-700 shadow-md bg-clip-border rounded-xl w-86">
 		<div
-			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-{playerColor} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
+			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-{colorType} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
 		>
 			<img
 				class="object-cover object-center h-96 w-96"
@@ -52,13 +52,13 @@
 			/>
 		</div>
 		<div class="p-6 text-center">
-			<h4
-				class="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900"
+			<h3
+				class="block mb-2 font-sans text-2xl underline antialiased font-semibold leading-snug tracking-normal text-blue-gray-900"
 			>
 				{pokemon}
-			</h4>
+			</h3>
 			<div
-				class="block font-sans text-base antialiased font-medium leading-relaxed text-{colorType} bg-clip-text p-4"
+				class="block font-sans text-base antialiased font-medium leading-relaxed bg-clip-text p-4 rounded-full border-2 border-{colorType}"
 			>
 				{type}
 			</div>
