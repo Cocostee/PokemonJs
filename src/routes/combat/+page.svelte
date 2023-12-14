@@ -1,6 +1,27 @@
 <script>
     import TerreSauvage from '$lib/images/TerreSauvage2.jpg';
+    
+    // Fonction pour extraire les paramètres de l'URL
+    /**
+	 * @param {string} name
+	 */
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[[]]/g, "\\$&");
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
+    // Récupérer le nom des Pokémon pour chaque joueur
+    const pokemonJoueur1Nom = getParameterByName('pokemon1');
+    const pokemonJoueur2Nom = getParameterByName('pokemon2');
+
+    // Afficher les noms dans la console
+    console.log(`Nom du Pokémon du Joueur 1: ${pokemonJoueur1Nom}`);
+    console.log(`Nom du Pokémon du Joueur 2: ${pokemonJoueur2Nom}`);
+    
     let PokemonJoueur1 = {
         pokemon: 'Tadmorv',
         type: 'Poison',
@@ -74,8 +95,8 @@
     <h1 class="select-none rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xl font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mb-5 mt-2"> Que le meilleur gagne </h1>
     <div class="relative mb-10">
         <picture class="relative block">
-            <img src={TerreSauvage} alt="area" class="h-[400px] w-[1000px] rounded-xl" />
-            <img src={`$lib/images/${PokemonJoueur1.pokemon}.png`} alt="pokemonjoueur1" class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl" />
+            <img src="/images/TerreSauvage2.jpg" alt="area" class="h-[400px] w-[1000px] rounded-xl" />
+            <img src="/images/{PokemonJoueur1.pokemon}.png" alt="pokemonjoueur1" class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl" />
         </picture>
     </div>
 
