@@ -18,7 +18,7 @@
 			class="mr-4 block cursor-pointer py-1.5 font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased">
 			Pokemon
 			</a>
-			<a href="/combat"
+			<a href="/"
 			class="mr-4 block cursor-pointer py-1.5 font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased">
 			Combat
 			</a>

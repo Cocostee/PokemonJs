@@ -116,6 +116,63 @@
         { "atkName": "Morsure", "type": "Normal", "dmg": "17", "hit": "70", "crit": "25" }
       ]
     },
+    {
+      "pokemon": "Rayquaza",
+      "type": "Dragon/Vol",
+      "life": "105",
+      "atk": "150",
+      "def": "90",
+      "speed": "95",
+      "moves": [
+         { "atkName": "Draco Météore", "type": "Dragon", "dmg": "120", "hit": "85", "crit": "25" },
+         { "atkName": "Ouragan", "type": "Vol", "dmg": "110", "hit": "90", "crit": "15" },
+         { "atkName": "Lame d'Air", "type": "Vol", "dmg": "80", "hit": "100", "crit": "30" }
+      ]
+   },
+   {
+    "pokemon": "Arceus",
+    "type": "Normal",
+    "life": "120",
+    "atk": "120",
+    "def": "120",
+    "speed": "120",
+    "moves": [
+       { "atkName": "Jugement", "type": "Normal", "dmg": "150", "hit": "90", "crit": "20" },
+       { "atkName": "Eclat Magique", "type": "Fée", "dmg": "100", "hit": "100", "crit": "15" },
+       { "atkName": "Aurores Boréales", "type": "Glace", "dmg": "120", "hit": "80", "crit": "25" }
+    ]
+  },
+  {
+    "pokemon": "Groudon",
+    "type": "Sol",
+    "life": "130",
+    "atk": "140",
+    "def": "150",
+    "speed": "90",
+    "moves": [
+      { "atkName": "Séisme", "type": "Sol", "dmg": "130", "hit": "85", "crit": "15" },
+      { "atkName": "Lame de Roc", "type": "Roche", "dmg": "110", "hit": "95", "crit": "20" },
+      { "atkName": "Ebullition", "type": "Eau", "dmg": "90", "hit": "100", "crit": "25" }
+    ]
+  },
+  {
+    "pokemon": "Lugia",
+    "type": "Psy/Vol",
+    "life": "140",
+    "atk": "110",
+    "def": "140",
+    "speed": "110",
+    "moves": [
+       { "atkName": "Psyko", "type": "Psy", "dmg": "120", "hit": "90", "crit": "20" },
+       { "atkName": "Aéropique", "type": "Vol", "dmg": "100", "hit": "95", "crit": "15" },
+       { "atkName": "Soin", "type": "Psy", "dmg": "0", "hit": "100", "crit": "10" }
+    ]
+  }
+ 
+
+ 
+   
+    },
 		{
 			"pokemon": "Astley",
 			"type": "Psy",
