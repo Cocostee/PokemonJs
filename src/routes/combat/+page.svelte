@@ -88,6 +88,9 @@
 		// Show the GIF
 		gifElement.style.display = 'block';
 
+        const slashSound = new Audio('./music/slash_sound.mp3');
+        slashSound.play();
+
 		// Wait for 1 seconds
 		setTimeout(function () {
 			// Hide the GIF after 1 seconds
@@ -122,6 +125,8 @@
 
 		if (pokemonAttaque.life <= 0) {
 			// Afficher une alerte indiquant le gagnant
+            stopAllAudio();
+
 			alert(`Le joueur ${joueur} a remporté la victoire avec ${pokemonAttaquant.pokemon} !`);
 
 			window.location.href = '/';
