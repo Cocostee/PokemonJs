@@ -167,12 +167,7 @@
        { "atkName": "Aéropique", "type": "Vol", "dmg": "100", "hit": "95", "crit": "15" },
        { "atkName": "Soin", "type": "Psy", "dmg": "0", "hit": "100", "crit": "10" }
     ]
-  }
- 
-
- 
-   
-    },
+  },
 		{
 			"pokemon": "Astley",
 			"type": "Psy",

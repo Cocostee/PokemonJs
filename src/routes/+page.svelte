@@ -259,7 +259,7 @@
 		},
 		{
 			pokemon: "Rayquaza",
-			type: "Dragon/Vol",
+			type: "Dragon",
 			life: "105",
 			atk: "150",
 			def: "90",
@@ -298,7 +298,7 @@
 		},
 		{
 			pokemon: "Lugia",
-			type: "Psy/Vol",
+			type: "Psy",
 			life: "140",
 			atk: "110",
 			def: "140",
