@@ -119,7 +119,7 @@
     {
       "pokemon": "Rayquaza",
       "type": "Dragon",
-      "life": "105",
+      "life": "698",
       "atk": "150",
       "def": "90",
       "speed": "95",
@@ -132,7 +132,7 @@
    {
     "pokemon": "Arceus",
     "type": "Normal",
-    "life": "120",
+    "life": "624",
     "atk": "120",
     "def": "120",
     "speed": "120",
@@ -145,7 +145,7 @@
   {
     "pokemon": "Groudon",
     "type": "Sol",
-    "life": "130",
+    "life": "700",
     "atk": "140",
     "def": "150",
     "speed": "90",
@@ -158,7 +158,7 @@
   {
     "pokemon": "Lugia",
     "type": "Vol",
-    "life": "140",
+    "life": "630",
     "atk": "110",
     "def": "140",
     "speed": "110",
@@ -171,7 +171,7 @@
 		{
 			"pokemon": "Astley",
 			"type": "Psy",
-			"life": "95",
+			"life": "600",
 			"atk": "18",
 			"def": "11",
 			"speed": "16",
