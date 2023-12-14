@@ -298,7 +298,7 @@
 		},
 		{
 			pokemon: "Lugia",
-			type: "Psy",
+			type: "Vol",
 			life: "140",
 			atk: "110",
 			def: "140",

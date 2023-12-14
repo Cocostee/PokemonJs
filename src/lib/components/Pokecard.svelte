@@ -34,6 +34,15 @@
 		case 'Normal':
 			colorType = 'gray-700';
 			break;
+		case 'Dragon':
+			colorType = 'orange-400';
+			break;
+		case 'Sol':
+			colorType = 'orange-900';
+			break;
+		case 'Vol':
+			colorType = 'white';
+			break;
 	}
 </script>
 
