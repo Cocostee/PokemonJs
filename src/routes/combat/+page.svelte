@@ -179,7 +179,7 @@
 				<img
 					src="/images/{PokemonJoueur2.pokemon}.png"
 					alt="pokemonjoueur2"
-					class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+					class="absolute top-1/2 left-0 transform -scale-x-100 -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
 				/>
 			{/if}
 
@@ -218,7 +218,7 @@
 					class="disabled:bg-red-50 select-none m-2 rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
 					type="button"
 					on:click={() => effectuerAction(2, index)}
-					disabled={isPlayer1Turn}>{attaque.atkName}</button
+					disabled={isPlayer1Turn}>{attaque.atkName} ({attaque.dmg})</button
 				>
 			{/each}
 		</div>
@@ -234,7 +234,7 @@
 					class="disabled:bg-red-50 select-none m-2 rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85]"
 					type="button"
 					on:click={() => effectuerAction(1, index)}
-					disabled={!isPlayer1Turn}>{attaque.atkName}</button
+					disabled={!isPlayer1Turn}>{attaque.atkName} ({attaque.dmg})</button
 				>
 			{/each}
 		</div>
