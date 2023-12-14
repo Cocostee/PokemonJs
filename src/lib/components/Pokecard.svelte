@@ -45,11 +45,19 @@
 		<div
 			class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-{colorType} shadow-lg bg-clip-border rounded-full h-80 border-4 border-black"
 		>
-			<img
-				class="object-cover object-center h-96 w-96"
-				src="images/{pokemon}.png"
-				alt="picture of an {pokemon}"
-			/>
+			{#if pokemon === 'Astley'}
+				<img
+					class="object-cover object-center h-96 w-96"
+					src="images/{pokemon}.gif"
+					alt="picture of a {pokemon}"
+				/>
+			{:else}
+				<img
+					class="object-cover object-center h-96 w-96"
+					src="images/{pokemon}.png"
+					alt="picture of a {pokemon}"
+				/>
+			{/if}
 		</div>
 		<div class="p-6 text-center">
 			<h3

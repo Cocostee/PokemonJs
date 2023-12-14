@@ -6,6 +6,15 @@
 	const pokemon1 = $page.url.searchParams.get('pokemon1');
 	const pokemon2 = $page.url.searchParams.get('pokemon2');
 
+	function stopAllAudio() {
+		// Stop all currently playing audio elements
+		const audioElements = document.querySelectorAll('audio');
+		audioElements.forEach((audio) => {
+			audio.pause();
+			audio.currentTime = 0;
+		});
+	}
+
 	/**
 	 * @param {string | null} name
 	 */
@@ -126,16 +135,33 @@
 	<div class="relative mb-10">
 		<picture class="relative block">
 			<img src="/images/TerreSauvage2.jpg" alt="area" class="h-[400px] w-[1000px] rounded-xl" />
-			<img
-				src="/images/{PokemonJoueur1.pokemon}.png"
-				alt="pokemonjoueur1"
-				class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
-			/>
-			<img
-				src="/images/{PokemonJoueur2.pokemon}.png"
-				alt="pokemonjoueur2"
-				class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
-			/>
+			{#if PokemonJoueur1.pokemon == 'Astley'}
+				<img
+					src="/images/{PokemonJoueur1.pokemon}.gif"
+					alt="pokemonjoueur1"
+					class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+				/>
+			{:else}
+				<img
+					src="/images/{PokemonJoueur1.pokemon}.png"
+					alt="pokemonjoueur1"
+					class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+				/>
+			{/if}
+			{#if PokemonJoueur2.pokemon == 'Astley'}
+				<img
+					src="/images/{PokemonJoueur2.pokemon}.gif"
+					alt="pokemonjoueur2"
+					class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+				/>
+			{:else}
+				<img
+					src="/images/{PokemonJoueur2.pokemon}.png"
+					alt="pokemonjoueur2"
+					class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+				/>
+			{/if}
+
 			<img
 				src="/images/slash.gif"
 				alt="attack on player 1"
@@ -217,9 +243,8 @@
 </div>
 
 <audio controls autoplay class="hidden">
-    <source src="./music/fight_music.mp3" type="audio/mp3">
+	<source src="./music/fight_music.mp3" type="audio/mp3" />
 </audio>
-
 
 <style>
 	.hidden-first {

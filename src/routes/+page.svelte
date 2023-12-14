@@ -242,6 +242,20 @@
 				{ atkName: 'Morsure', type: 'Normal', dmg: '17', hit: '70', crit: '25' }
 			],
 			color: 'bg-white'
+		},
+		{
+			pokemon: 'Astley',
+			type: 'Psy',
+			life: '95',
+			atk: '18',
+			def: '11',
+			speed: '16',
+			moves: [
+				{ atkName: 'Never gonna give you up', type: 'Psy', dmg: '16', hit: '95', crit: '20' },
+				{ atkName: 'Ley you down', type: 'Psy', dmg: '5', hit: '100', crit: '35' },
+				{ atkName: 'Run around', type: 'Psy', dmg: '12', hit: '70', crit: '25' }
+			],
+			color: 'bg-white'
 		}
 	];
 </script>
