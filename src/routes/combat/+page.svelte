@@ -69,7 +69,7 @@
      * @param {number} attaque
      */
     function effectuerAction(joueur, attaque) {
-        
+
         let pokemonAttaquant = joueur === 1 ? PokemonJoueur1 : PokemonJoueur2;
         let attaquePokemon = pokemonAttaquant.moves[attaque];
 
@@ -86,7 +86,14 @@
 
         $: attackMessage = message;
 
-        passerTour();
+        if (pokemonAttaque.life <= 0) {
+            // Afficher une alerte indiquant le gagnant
+            alert(`Le joueur ${joueur} a remporté la victoire avec ${pokemonAttaquant.pokemon} !`);
+
+            window.location.href = "/";
+        } else {
+            passerTour();
+        }
     }
 
 
