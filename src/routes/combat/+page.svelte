@@ -5,6 +5,12 @@
 
 	const pokemon1 = $page.url.searchParams.get('pokemon1');
 	const pokemon2 = $page.url.searchParams.get('pokemon2');
+	let imageVibration1;
+	let imageVibration2;
+	let isVibrationJoueur1 = false;
+	let isVibrationJoueur2 = false;
+    let isVibrationJoueurDef1 = false;
+	let isVibrationJoueurDef2 = false;
 
 	function stopAllAudio() {
 		// Stop all currently playing audio elements
@@ -77,6 +83,27 @@
 	 * @param {number} attaque
 	 */
 	function effectuerAction(joueur, attaque) {
+		// recupere l'image du joueur
+		if (joueur === 1) {
+			isVibrationJoueur1 = true;
+            isVibrationJoueurDef2 = true;
+			setTimeout(() => {
+				isVibrationJoueur1 = false;
+                setTimeout(() => {
+                    isVibrationJoueurDef2 = false;
+                }, 1000);
+			}, 1000);
+		} else {
+			isVibrationJoueur2 = true;
+            isVibrationJoueurDef1 = true;
+			setTimeout(() => {
+				isVibrationJoueur2 = false;
+                setTimeout(() => {
+                    isVibrationJoueurDef1 = false;
+                }, 1000);
+			}, 1000);
+		}
+
 		let pokemonAttaquant = joueur === 1 ? PokemonJoueur1 : PokemonJoueur2;
 		let attaquePokemon = pokemonAttaquant.moves[attaque];
 
@@ -98,21 +125,6 @@
 		}, 1000);
 
 		let degats = attaquePokemon.dmg;
-
-		// Vérifier l'avantage de type
-		if (attaquePokemon.type === 'Eau' && pokemonAttaque.type === 'Plante') {
-			degats *= 0.5;
-		} else if (attaquePokemon.type === 'Plante' && pokemonAttaque.type === 'Eau') {
-			degats *= 1.5;
-		} else if (attaquePokemon.type === 'Feu' && pokemonAttaque.type === 'Plante') {
-			degats *= 2;
-		} else if (attaquePokemon.type === 'Plante' && pokemonAttaque.type === 'Feu') {
-			degats *= 0.5;
-		} else if (attaquePokemon.type === 'Feu' && pokemonAttaque.type === 'Eau') {
-			degats *= 0.5;
-		} else if (attaquePokemon.type === 'Eau' && pokemonAttaque.type === 'Feu') {
-			degats *= 2;
-		}
 
 		pokemonAttaque.life -= degats;
 
@@ -163,11 +175,15 @@
 					class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
 				/>
 			{:else}
-				<img
-					src="/images/{PokemonJoueur1.pokemon}.png"
-					alt="pokemonjoueur1"
-					class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
-				/>
+				<div class:VibrationJoueur1={isVibrationJoueur1} class:VibrationJoueurDef1={isVibrationJoueurDef1}>
+					<img
+						src="/images/{PokemonJoueur1.pokemon}.png"
+						alt="pokemonjoueur1"
+						id="imageVibration1"
+						bind:this={imageVibration1}
+						class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+					/>
+				</div>
 			{/if}
 			{#if PokemonJoueur2.pokemon == 'Astley'}
 				<img
@@ -176,11 +192,15 @@
 					class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
 				/>
 			{:else}
-				<img
-					src="/images/{PokemonJoueur2.pokemon}.png"
-					alt="pokemonjoueur2"
-					class="absolute top-1/2 left-0 transform -scale-x-100 -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
-				/>
+                <div class:VibrationJoueur2={isVibrationJoueur2} class:VibrationJoueurDef2={isVibrationJoueurDef2}>
+                    <img
+                        src="/images/{PokemonJoueur2.pokemon}.png"
+                        alt="pokemonjoueur2"
+                        id="imageVibration2"
+                        bind:this={imageVibration2}
+                        class="absolute top-1/2 left-0 transform -scale-x-100 -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+                    />
+                </div>
 			{/if}
 
 			<img
@@ -271,4 +291,38 @@
 	.hidden-first {
 		display: none;
 	}
+
+    .VibrationJoueur1 {
+        animation: spin 0.3s ease-in-out infinite;
+    }
+
+    .VibrationJoueur2 {
+        animation: spin 0.3s ease-in-out infinite;
+    }
+
+    .VibrationJoueurDef1 {
+        animation: pulse 0.3s ease-in-out infinite;
+    }
+
+    .VibrationJoueurDef2 {
+        animation: pulse 0.3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: .5;
+        }
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
 </style>
