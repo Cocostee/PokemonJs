@@ -73,7 +73,7 @@
 		let pokemonAttaque = joueur === 1 ? PokemonJoueur2 : PokemonJoueur1;
 
 		var gifElement =
-			joueur === 1 ? document.getElementById('attack1') : document.getElementById('attack2');
+			joueur === 1 ? document.getElementById('attack2') : document.getElementById('attack1');
 
 		// Show the GIF
 		gifElement.style.display = 'block';
