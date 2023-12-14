@@ -1,10 +1,17 @@
 <script>
 	import TerreSauvage from '$lib/images/TerreSauvage2.jpg';
+	import JeTenik from '$lib/music/Aller, je te nique.mp4';
 	import { page } from '$app/stores';
 	import pokemonData from './pokemon.json';
 
 	const pokemon1 = $page.url.searchParams.get('pokemon1');
 	const pokemon2 = $page.url.searchParams.get('pokemon2');
+	let imageVibration1;
+	let imageVibration2;
+	let isVibrationJoueur1 = false;
+	let isVibrationJoueur2 = false;
+	let isVibrationJoueurDef1 = false;
+	let isVibrationJoueurDef2 = false;
 
 	function stopAllAudio() {
 		// Stop all currently playing audio elements
@@ -27,6 +34,7 @@
 
 	/**
 	 * @type {{ pokemon: any; life: any; moves: any; type?: string; atk?: string; def?: string; speed?: string; }}
+	 *
 	 */
 	let PokemonJoueur1;
 
@@ -76,7 +84,27 @@
 	 * @param {number} attaque
 	 */
 	function effectuerAction(joueur, attaque) {
-        
+		// recupere l'image du joueur
+		if (joueur === 1) {
+			isVibrationJoueur1 = true;
+			isVibrationJoueurDef2 = true;
+			setTimeout(() => {
+				isVibrationJoueur1 = false;
+				setTimeout(() => {
+					isVibrationJoueurDef2 = false;
+				}, 1000);
+			}, 1000);
+		} else {
+			isVibrationJoueur2 = true;
+			isVibrationJoueurDef1 = true;
+			setTimeout(() => {
+				isVibrationJoueur2 = false;
+				setTimeout(() => {
+					isVibrationJoueurDef1 = false;
+				}, 1000);
+			}, 1000);
+		}
+
 		let pokemonAttaquant = joueur === 1 ? PokemonJoueur1 : PokemonJoueur2;
 		let attaquePokemon = pokemonAttaquant.moves[attaque];
 
@@ -88,8 +116,8 @@
 		// Show the GIF
 		gifElement.style.display = 'block';
 
-        const slashSound = new Audio('./music/slash_sound.mp3');
-        slashSound.play();
+		const slashSound = new Audio('./music/slash_sound.mp3');
+		slashSound.play();
 
 		// Wait for 1 seconds
 		setTimeout(function () {
@@ -98,21 +126,6 @@
 		}, 1000);
 
 		let degats = attaquePokemon.dmg;
-
-        // Vérifier l'avantage de type
-        if (attaquePokemon.type === "Eau" && pokemonAttaque.type === "Plante") {
-            degats *= 0.5;
-        } else if (attaquePokemon.type === "Plante" && pokemonAttaque.type === "Eau") {
-            degats *= 1.5;
-        } else if (attaquePokemon.type === "Feu" && pokemonAttaque.type === "Plante") {
-            degats *= 2;
-        } else if (attaquePokemon.type === "Plante" && pokemonAttaque.type === "Feu") {
-            degats *= 0.5;
-        } else if (attaquePokemon.type === "Feu" && pokemonAttaque.type === "Eau") {
-            degats *= 0.5;
-        } else if (attaquePokemon.type === "Eau" && pokemonAttaque.type === "Feu") {
-            degats *= 2;
-        }
 
 		pokemonAttaque.life -= degats;
 
@@ -125,7 +138,7 @@
 
 		if (pokemonAttaque.life <= 0) {
 			// Afficher une alerte indiquant le gagnant
-            stopAllAudio();
+			stopAllAudio();
 
 			alert(`Le joueur ${joueur} a remporté la victoire avec ${pokemonAttaquant.pokemon} !`);
 
@@ -163,11 +176,18 @@
 					class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
 				/>
 			{:else}
-				<img
-					src="/images/{PokemonJoueur1.pokemon}.png"
-					alt="pokemonjoueur1"
-					class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
-				/>
+				<div
+					class:VibrationJoueur1={isVibrationJoueur1}
+					class:VibrationJoueurDef1={isVibrationJoueurDef1}
+				>
+					<img
+						src="/images/{PokemonJoueur1.pokemon}.png"
+						alt="pokemonjoueur1"
+						id="imageVibration1"
+						bind:this={imageVibration1}
+						class="absolute top-1/2 right-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+					/>
+				</div>
 			{/if}
 			{#if PokemonJoueur2.pokemon == 'Astley'}
 				<img
@@ -176,11 +196,18 @@
 					class="absolute top-1/2 left-0 transform -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
 				/>
 			{:else}
-				<img
-					src="/images/{PokemonJoueur2.pokemon}.png"
-					alt="pokemonjoueur2"
-					class="absolute top-1/2 left-0 transform -scale-x-100 -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
-				/>
+				<div
+					class:VibrationJoueur2={isVibrationJoueur2}
+					class:VibrationJoueurDef2={isVibrationJoueurDef2}
+				>
+					<img
+						src="/images/{PokemonJoueur2.pokemon}.png"
+						alt="pokemonjoueur2"
+						id="imageVibration2"
+						bind:this={imageVibration2}
+						class="absolute top-1/2 left-0 transform -scale-x-100 -translate-y-1/2 h-[200px] w-[200px] rounded-xl"
+					/>
+				</div>
 			{/if}
 
 			<img
@@ -246,16 +273,19 @@
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
+				version="1.1"
+				viewBox="0 0 16 16"
+				width="16"
+				height="16"
 				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
 				stroke="currentColor"
-				class="w-6 h-6"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="1.5"
 			>
+				<path d="m2.75 9.25 1.5 2.5 2 1.5m-4.5 0 1 1m1.5-2.5-1.5 1.5m3-1 8.5-8.5v-2h-2l-8.5 8.5" />
 				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+					d="m10.25 12.25-2.25-2.25m2-2 2.25 2.25m1-1-1.5 2.5-2 1.5m4.5 0-1 1m-1.5-2.5 1.5 1.5m-7.25-5.25-4.25-4.25v-2h2l4.25 4.25"
 				/>
 			</svg>
 			{attackMessage}
@@ -270,5 +300,40 @@
 <style>
 	.hidden-first {
 		display: none;
+	}
+
+	.VibrationJoueur1 {
+		animation: spin 0.3s ease-in-out infinite;
+	}
+
+	.VibrationJoueur2 {
+		animation: spin 0.3s ease-in-out infinite;
+	}
+
+	.VibrationJoueurDef1 {
+		animation: pulse 0.3s ease-in-out infinite;
+	}
+
+	.VibrationJoueurDef2 {
+		animation: pulse 0.3s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 </style>
